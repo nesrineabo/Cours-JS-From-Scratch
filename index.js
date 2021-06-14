@@ -201,3 +201,144 @@ boxes.forEach((box) => {
     e.target.style.transform = "scale(0.7)";
   });
 });
+
+//-----------------------------------------------
+// addEventListener vs onclick
+
+// il existe un autre moyen d'écouter un évènement : onclick mais la méthode la plus moderne c'est addEventListener
+
+//document.body.onclick = () => {
+//  console.log("tu as cliqué !");
+//};
+
+// Défauts / à addEventListener on ne peut pas attribuer 2
+// qualité de onclick peut s'ajouter sur le html (pas une bonne pratique)
+
+document.body.addEventListener("click", () => {
+  console.log("CLic 1");
+});
+
+document.body.addEventListener("click", () => {
+  console.log("CLICK 2");
+});
+
+// => ici avec addEventListener les évènements se déroulent en même temps
+
+// prise de note sur Bubbling et UseCapture
+
+//-------------------------------------------------------------
+// MÉTHODE POUR ARRÊTER LA PROPAGATION D'UN ÉVÈNEMENT
+// MÉTHODE : STOPPROPAGATION
+
+// En faisant comme ça, les autres évènements se sont quand même déclenchés (on voit click 1 et CLICK 2)
+//questionContainer.addEventListener("click", (e) => {
+//  alert("TEST");
+//  e.stopPropagation();
+//});
+
+// En ajoutant ensuite e.stopPropagation()les évènements ne se sont pas déclenchés (sauf si on avait utilisé usecapture en mettant "true" en 3ème arguement)
+
+//-------------------------------------------------------------
+// BOM : BROTHER OBJECT MODEL
+
+console.log(window.innerHeight); // window. = objet window quelquechose qui nous donne des infos sur la fenetre
+
+//window.open("http://google.com", "cours js", "height = 600, width=800");
+//window.close() ca ferme la fenetre popup par exemple après avoir cliqué sur qqch
+
+// Event adossés à window
+// alert("hello");
+
+//----------
+// confirm
+btn2.addEventListener("click", () => {
+  confirm("Voulez-vous vraiment vous tromper ?");
+});
+
+//-----------
+// Prompt : pop up où utilisateur résultat
+btn1.addEventListener("click", () => {
+  let answer = prompt("Entrez votre nom !");
+
+  questionContainer.innerHTML += "<h3>Bravo " + answer + "</h3";
+});
+// --------
+// setTimeout : écriture
+// setTimeout(() => {
+// logique à exécuter
+//}, "temps en ms avant de déclencher")
+
+setTimeout(() => {
+  questionContainer.style.borderRadius = "300px";
+}, 3000);
+
+//-----------
+// Set Intervalle : écriture : exécute un bout de code toutes les X ms
+
+// setInterval(() => {
+// logique à exécuter
+//}, temps = toutes les XX ms);
+
+/*
+setInterval(() => {
+  document.body.innerHTML += `<div class='box'>
+  <h2>Nouvelle Boite !</h2>
+  </div>
+  `;
+}); */
+
+// pour arrêter setInterval on le déclare dans une variable 'let'
+// let interval = setInterval(() => {
+// document.body.innerHTML += `<div class='box'>
+// <h2>Nouvelle Boite !</h2>
+// </div>
+// `;
+// });
+
+// On créé ensuite un évènement : (quand on te clique dessus tu m'arrêtes l'intervalle)
+// document.body.addEventListener("click", () => {
+// console.log(e.target); pour savoir où on a cliqué
+// clearInterval(interval);
+// })
+
+// retirer un élément du DOM : e.target.remove()
+
+//-----------------------------
+
+// Objet location du BOM
+// console.log(location.href);
+// console.log(location.host);
+// console.log(location.pathname);
+// console.log(location.search);
+
+// location.replace("http://lequipe.fr"); // rediriger vers un autre lien
+
+// renvoyer vers un autre site
+
+// window.onload = () => {
+//   location.href = "http://twitter.Fr";
+// };
+
+//----------------------------
+// NAVIGATOR
+console.log(navigator.userAgent);
+// on peut se localiser
+// geolocalisation lire mozilla
+
+// History objet du BOM
+
+//console.log(history);
+//window.history.back(); pour revenir en arrière
+// history.go(-2); pour revenir en arrière d'autant de pages qu'on veut
+
+//----------------------------------------------------
+// SetProperty
+
+// (on va dans le css et on va coder un élément  ::after de la navbar un truc qui va suivre la souris quand on parcourt la navigation
+// on ajoute des var(--x) et var(--y) dans left et top
+// on implémente les variables d'ici en JS
+
+// window.addEventListener("mousemove", (e) => {
+//   console.log(e);
+//   nav.style.setProperty("--x", e.layerX + "px");
+// });
